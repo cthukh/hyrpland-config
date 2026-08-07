@@ -1,0 +1,175 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 26, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": "0", // Gaps between modules (4px)}
+
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/submap",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "memory",
+        "clock",
+        "cpu"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "bluetooth",
+        "network",
+        "power-profiles-daemon",
+        "backlight",
+        "battery"
+    ],
+
+
+    // Configuración de modulos
+    "hyprland/window": {
+        "max-length": 30,
+        "icon": true,
+        "icon-size": 17
+    },
+
+
+    "hyprland/workspaces": {
+        "on-click": "active",
+        "format": "{icon}",
+        "format-icons": {
+            "default": "•",
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10"
+            //"active": ""
+        },
+        "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e-1\"})' ",
+        "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e+1\"})' ",
+        "justify": "center"
+    },
+
+
+
+
+    "memory": {
+        "format": "   {}%",
+        "format-alt": "   {used}Gb"
+    },
+    "clock": {
+        "timezone": "America/Santiago",
+        "format": "{:L%A %H:%M}",
+        "format-alt": "{:L%d %B %Y}",
+        "justify": "center",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months": "<span color='#ff6699'><b>{}</b></span>",
+                "days": "<span color='#cdd6f4'><b>{}</b></span>",
+                "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
+                "today": "<span color='#ffcc66'><b>{}</b></span>"
+            }
+        }
+    },
+    "cpu": {
+        "interval": 5,
+        "format": "{usage}% ",
+        "tooltip": true,
+        "on-click": "~/.config/waybar/scripts/monitor-recursos.sh"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "on-click": "pkill pavucontrol || pavucontrol",
+        "on-click-right": "pamixer -t",
+        "tooltip-format": "Playing at {volume}%",
+        "scroll-step": 5,
+        "format-muted": "",
+        "format-icons": {
+        "headphone": "",
+        "headset": "",
+        "default": ["", "", ""],
+        "justify": "center"
+        }
+    },
+    "bluetooth": {
+        "format": "",
+        "justify": "center",
+        "format-off": "󰂲",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱",
+        "format-no-controller": "",
+        "tooltip-format": "Devices connected: {num_connections}",
+        "on-click": "~/.config/waybar/scripts/bluetooth-manager.sh"
+    },
+    "network": {
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "format": "{icon}",
+        "justify": "center",
+        "format-wifi": "{icon}",
+        "format-ethernet": "󰀂",
+        "format-disconnected": "󰤮",
+        "tooltip-format-wifi": "{essid} ({frequency} GHz)",
+        "tooltip-format-ethernet": "Connected",
+        "tooltip-format-disconnected": "Disconnected",
+        "interval": 3,
+        "spacing": 1,
+        "on-click": "~/.config/waybar/scripts/wifi-manager.sh"
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "justify": "center",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "scroll-step": 10,
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-discharging": "{capacity}% {icon}",
+        "format-charging": "{capacity}% {icon}",
+        "format-plugged": "",
+        "format-icons": {
+            "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+            "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+        },
+        "format-full": "{capacity}% 󰂅",
+        "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+        "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+        "interval": 5,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        }
+    }
+    //"custom/power": {
+    //    "format" : "⏻ ",
+	//	"tooltip": false,
+	//	"menu": "on-click",
+	//	"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+	//	"menu-actions": {
+	//		"shutdown": "shutdown",
+	//		"reboot": "reboot",
+	//		"suspend": "systemctl suspend",
+	//		"hibernate": "systemctl hibernate"
+	//	}
+    //}
+}

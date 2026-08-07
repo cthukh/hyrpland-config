@@ -1,0 +1,14 @@
+esc_quit = true  # Set to true to enable Esc key to quit the app
+
+toggle_scanning = "s"
+
+[adapter]
+toggle_pairing = "p"
+toggle_power = "o"
+toggle_discovery = "d"
+
+[paired_device]
+unpair = "u"
+toggle_trust = "t"
+toggle_favorite = "f"
+rename = "e"
